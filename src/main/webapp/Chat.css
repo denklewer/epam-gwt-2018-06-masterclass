@@ -1,0 +1,101 @@
+/** Add css rules here for your application. */
+
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: #777777;
+    margin: 40px 0px 70px;
+    text-align: center;
+}
+
+.sendButton {
+    display: block;
+    font-size: 16pt;
+}
+
+.gwt-DialogBox {
+    width: 250px;
+}
+
+.dialogVPanel {
+    width: 100%;
+    height: 100%;
+    margin: 5px;
+}
+
+.serverResponseLabelError {
+    color: red;
+}
+
+body {
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.mainDiv {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.chatAreaDiv {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    box-sizing: border-box;
+    /*border-bottom: 1px solid red;*/
+}
+
+.text-field {
+    flex: 0.06;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.text-input {
+    display: flex;
+    flex: 1;
+    border: 0;
+}
+
+.menuDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: #F6F6F4;
+    /*border-right: 1px solid red;*/
+}
+
+.avatarDiv {
+    width: 250px;
+    height: 250px;
+    background-color: lightgray;
+}
+
+.button {
+    width: 200px;
+    height: 50px;
+    align-self: center;
+}
+
+.loginFields {
+    margin: 0 10px 5px -10px;
+}
+
+.loginButton {
+    margin: 0 10px 0 0;
+}
+
+.button-load {
+    margin-top: 20px;
+}
