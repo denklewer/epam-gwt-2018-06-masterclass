@@ -1,55 +1,69 @@
 package com.epam.gwt.client;
 
+import com.google.gwt.canvas.client.Canvas;
+import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.JsArray;
-import com.google.gwt.core.client.JsonUtils;
-import com.google.gwt.http.client.*;
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.dom.client.CanvasElement;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class Chat implements EntryPoint {
 
-    private final FlexTable table = new FlexTable();
+    private static final String[] COLORS = {
+            "rgb(0, 0, 0)",
+            "rgb(255, 255, 0)",
+            "rgb(0, 0, 255)",
+            "rgb(0, 255, 0)",
+            "rgb(255, 0, 255)",
+            "rgb(0, 255, 255)",
+    };
 
     @Override
     public void onModuleLoad() {
-        table.setText(0, 0, "ID");
-        table.setText(0, 1, "Login");
-        table.setText(0, 2, "AvatarURL");
-        table.setText(0, 3, "Link");
+        Canvas canvas = Canvas.createIfSupported();
+        RootPanel.get().add(canvas);
 
-        RootPanel.get("container").add(table);
+        CanvasElement canvasElement = canvas.getCanvasElement();
+        canvasElement.setWidth(400);
+        canvasElement.setHeight(700);
 
-        RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, "https://api.github.com/users");
-        builder.setHeader("Authorization", "token 70b729a6fa2df226fbf84f2bc55e02a822f28f7e");
-        builder.setHeader("Content-Type", "application/json; charset=utf-8");
+        Controller controller = new Controller();
+        Model model = new Model();
+        model.addListener(controller);
 
-        try {
-            builder.sendRequest(null, new RequestCallback() {
-                @Override
-                public void onResponseReceived(Request request, Response response) {
-                    if (response.getStatusCode() == 200) {
-                        JsArray arr = JsonUtils.safeEval(response.getText()).cast();
-                        for (int i = 0; i < arr.length(); ++i) {
-                            User user = arr.get(i).cast();
-                            table.setText(i + 1, 0, String.valueOf(user.getId()));
-                            table.setText(i + 1, 1, user.getLogin());
-                            table.setText(i + 1, 2, user.getAvatarUrl());
+        View view = new View();
+        controller.setView(view);
+        controller.setModel(model);
 
-                            Anchor anchor = new Anchor("->", "http://www.github.com/" + user.getLogin());
-                            table.setWidget(i + 1, 3, anchor);
-                        }
-                    }
-                }
+        Context2d context2d = canvas.getContext2d();
+        view.setGraphics((x, y, width, height, colorIndex) -> {
+            context2d.setFillStyle(COLORS[colorIndex]);
+            context2d.fillRect(x, y, width, height);
+        });
 
-                @Override
-                public void onError(Request request, Throwable exception) {
-                    System.out.println("Error");
-                }
-            });
-        } catch (RequestException e) {
-            e.printStackTrace();
-        }
+        canvas.addKeyPressHandler(event -> {
+            int code = event.getNativeEvent().getKeyCode();
+            switch (event.getNativeEvent().getCharCode()) {
+                case 'a':
+                    controller.moveLeft();
+                    break;
+
+                case 'd':
+                    controller.moveRight();
+                    break;
+
+                case 's':
+                    controller.moveDown();
+                    break;
+
+            }
+        });
+
+        new Timer() {
+            @Override
+            public void run() {
+                controller.moveDown();
+            }
+        }.scheduleRepeating(500);
     }
 }

@@ -3,7 +3,6 @@
   "http://gwtproject.org/doctype/2.8.2/gwt-module.dtd">
 <module rename-to='chat'>
   <inherits name='com.google.gwt.user.User'/>
-  <inherits name="com.google.gwt.http.HTTP"/>
   <inherits name='com.google.gwt.user.theme.clean.Clean'/>
   <!-- <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
