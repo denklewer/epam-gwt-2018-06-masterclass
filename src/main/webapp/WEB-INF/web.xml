@@ -5,26 +5,6 @@
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
 
-  <servlet>
-    <servlet-name>chatServlet</servlet-name>
-    <servlet-class>com.epam.gwt.server.ChatServiceImpl</servlet-class>
-  </servlet>
-
-  <servlet>
-    <servlet-name>avatarServlet</servlet-name>
-    <servlet-class>com.epam.gwt.server.AvatarServiceImpl</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>chatServlet</servlet-name>
-    <url-pattern>/chat/messages</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>avatarServlet</servlet-name>
-    <url-pattern>/chat/avatars</url-pattern>
-  </servlet-mapping>
-
   <welcome-file-list>
     <welcome-file>Chat.html</welcome-file>
   </welcome-file-list>
